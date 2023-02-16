@@ -2,6 +2,7 @@
 // ESModules => import/export
 
 import http from 'node:http';
+import { Database } from './database.js';
 import { json } from './middlewares/json.js';
 
 // Criar um usuário (name, email, senha)
@@ -26,7 +27,7 @@ import { json } from './middlewares/json.js';
 // Erros do cliente (400-499) - Front-end enviou informações incorretas
 // Erros do servidor (500-599). - Back-end enviou informações incorretas
 
-const users = []
+const database = new Database()
 
 const server = http.createServer(async (req, res) => {
 
@@ -37,21 +38,23 @@ const server = http.createServer(async (req, res) => {
 
     if (method == 'GET' && url == '/users') {
 
+        const users = database.select('users')
+
         //Early return
-        return res
-            .end(JSON.stringify(users))
+        return res.end(JSON.stringify(users))
     }
 
     if (method == 'POST' && url == '/users') {
 
         const { name, email } = req.body
 
-        users.push({
+        const user = {
             id: 1,
             name,
             email
-        })
+        }
 
+        database.insert('users', user)
         return res.writeHead(201).end()
     }
 

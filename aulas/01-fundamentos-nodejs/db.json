@@ -1,0 +1,44 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "id": 1,
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        }
+    ]
+}
