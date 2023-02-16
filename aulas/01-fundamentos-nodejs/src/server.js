@@ -2,8 +2,10 @@
 // ESModules => import/export
 
 import http from 'node:http';
-import { Database } from './database.js';
+
+
 import { json } from './middlewares/json.js';
+import { routes } from './routes.js';
 
 // Criar um usuário (name, email, senha)
 
@@ -27,7 +29,7 @@ import { json } from './middlewares/json.js';
 // Erros do cliente (400-499) - Front-end enviou informações incorretas
 // Erros do servidor (500-599). - Back-end enviou informações incorretas
 
-const database = new Database()
+
 
 const server = http.createServer(async (req, res) => {
 
@@ -36,26 +38,12 @@ const server = http.createServer(async (req, res) => {
 
     await json(req, res)
 
-    if (method == 'GET' && url == '/users') {
+    const route = routes.find(route => {
+        return route.method == method && route.path == url
+    })
 
-        const users = database.select('users')
-
-        //Early return
-        return res.end(JSON.stringify(users))
-    }
-
-    if (method == 'POST' && url == '/users') {
-
-        const { name, email } = req.body
-
-        const user = {
-            id: 1,
-            name,
-            email
-        }
-
-        database.insert('users', user)
-        return res.writeHead(201).end()
+    if(route) {
+        return route.handler(req, res)
     }
 
     return res.writeHead(404).end('Not found')
